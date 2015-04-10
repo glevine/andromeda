@@ -1,0 +1,6 @@
+---
+- name: Install chruby.
+  homebrew: name=chruby state=present
+
+- name: Copy files that should be sourced.
+  copy: src=chruby dest={{ universe }}/shell/chruby
