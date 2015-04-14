@@ -19,4 +19,4 @@
   ignore_errors: yes
 
 - name: Change the default shell to ZSH.
-  command: chsh -s {{ zsh.stdout }} {{ ansible_ssh_user }}
+  user: name={{ ansible_ssh_user }} shell={{ zsh.stdout }}
