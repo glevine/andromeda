@@ -1,0 +1,17 @@
+---
+- name: "Enter your email address."
+  pause: prompt="Enter your email address (Specifically, the one you use for GitHub.)"
+  register: ssh_key_comment
+
+- name: "Enter passphrase for SSH key."
+  pause: prompt="Enter passphrase for SSH key"
+  register: ssh_key_passphrase
+
+- name: Generate SSH key.
+  user: name={{ ansible_ssh_user }} generate_ssh_key=yes ssh_key_comment={{ ssh_key_comment.user_input }} ssh_key_passphrase={{ ssh_key_passphrase.user_input }}
+
+- name: Start ssh-agent in the background.
+  command: eval "$(ssh-agent -s)"
+
+- name: Add your SSH key to the ssh-agent.
+  command: ssh-add ~/.ssh/id_rsa
